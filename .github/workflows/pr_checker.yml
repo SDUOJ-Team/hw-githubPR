@@ -29,6 +29,7 @@ jobs:
           echo "1+3=4" >> ans.txt
           echo "1+4=5" >> ans.txt
           diff 1plus1.txt ans.txt -B -b -Z -w
+          if [ -f 1plus2.txt ]; then exit 1; fi
 
       - name: Close PR
         uses: superbrothers/close-pull-request@v3
