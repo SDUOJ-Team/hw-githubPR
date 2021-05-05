@@ -35,3 +35,5 @@ homework: practice for github PR
     ```
 4. 请修复 `1plus1.txt` 文件中第 4 行中存在的 bug，并且提交一个 commit，然后 push
 5. 随后在你的 Repo 里操作，提交一个 PR 到母仓库
+![](img/pic1.png)
+![](img/pic2.png)
