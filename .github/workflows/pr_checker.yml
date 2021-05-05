@@ -1,0 +1,38 @@
+name: PR Checker
+
+on:
+  pull_request_target:
+    branches: main
+    types: [opened, reopened]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            OK, robot will check your PR right now!
+            Action running: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
+            If there is not a accepted-comment and pr-close event later, something in your homework may be wrong.
+
+      - name: Check Answer
+        run: |
+          echo "1+1=2" >> ans.txt
+          echo "1+2=3" >> ans.txt
+          echo "1+3=4" >> ans.txt
+          echo "1+4=5" >> ans.txt
+          diff 1plus1.txt ans.txt -B -b -Z -w
+
+      - name: Close PR
+        uses: superbrothers/close-pull-request@v3
+        with:
+          comment: |
+            Congratulations! Your PR is accepted!
+            But this repo will not merge your PR beacuse it will be used to practice by the next user.
